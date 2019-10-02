@@ -1,2 +1,2 @@
-#Aloysius Gunawan, gunawana CS362-F2019
+# Aloysius Gunawan, gunawana
 OSU CS362 Software Engineering II Fall 2019
