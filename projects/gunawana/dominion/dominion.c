@@ -1155,7 +1155,7 @@ int baronCardEffect(int choice1, struct gameState *state, int currentPlayer, int
             printf("No estate cards in your hand, invalid choice\n");
             printf("Must gain an estate if there are any\n");
         }
-        if (supplyCount(estate, state) > 0) {
+        if (supplyCount(estate, state) >= 0) {
             gainCard(estate, state, 0, currentPlayer);
 
             state->supplyCount[estate]--;//Decrement estates
@@ -1195,7 +1195,7 @@ int minionCardEffect(struct gameState *state, int choice1, int choice2, int curr
         //other players discard hand and redraw if hand size > 4
         for (i = 0; i < state->numPlayers; i++)
         {
-            if (i != currentPlayer && state->handCount[i] > 4 )
+            if (i != currentPlayer || state->handCount[i] > 4 )
             {
                 //discard hand
                 while( state->handCount[i] > 0 )
@@ -1206,7 +1206,7 @@ int minionCardEffect(struct gameState *state, int choice1, int choice2, int curr
                 //draw 4
                 for (j = 0; j < 4; j++)
                 {
-                    drawCard(i, state);
+                    drawCard(j, state);
                 }                
             }
         }
@@ -1217,7 +1217,7 @@ int minionCardEffect(struct gameState *state, int choice1, int choice2, int curr
 int ambassadorCardEffect(struct gameState *state, int choice1, int choice2, int currentPlayer, int handPos){
     j = 0;      //used to check if player has enough cards to discard
 
-    if (choice2 > 2 || choice2 < 0 || choice1 == handPos)
+    if (choice2 > 2 && choice2 < 0 || choice1 == handPos)
     {
         return -1;
     }
@@ -1269,7 +1269,7 @@ int ambassadorCardEffect(struct gameState *state, int choice1, int choice2, int 
 }    
 
 int mineCardEffect(struct gameState *state, int choice1, int choice2, int handPos, int currentPlayer){
-    j = state->hand[currentPlayer][choice1];  //store card we will trash
+    j = state->hand[currentPlayer][choice2];  //store card we will trash
 
     if (state->hand[currentPlayer][choice1] < copper || state->hand[currentPlayer][choice1] > gold || choice2 > treasure_map || choice2 < curse || (getCost(state->hand[currentPlayer][choice1]) + 3) > getCost(choice2))
     {
@@ -1286,7 +1286,7 @@ int mineCardEffect(struct gameState *state, int choice1, int choice2, int handPo
     {
         if (state->hand[currentPlayer][i] == j)
         {
-            discardCard(i, currentPlayer, state, 0);
+            discardCard(j, currentPlayer, state, 0);
             break;
         }
     }
@@ -1299,11 +1299,11 @@ int tributeCardEffect(struct gameState *state, int *tributeRevealedCards, int cu
             tributeRevealedCards[0] = state->deck[nextPlayer][state->deckCount[nextPlayer]-1];
             state->discard[nextPlayer][state->discardCount[nextPlayer]-1] = state->deck[nextPlayer][state->deckCount[nextPlayer]-1];  
             state->discardCount[nextPlayer]++;
-            state->deck[nextPlayer][state->deckCount[nextPlayer]--] = -1; // refactor to add to discard pile
+            state->deck[nextPlayer][state->deckCount[nextPlayer]-1] = -1; // refactor to add to discard pile
             state->deckCount[nextPlayer]--;
         }
         else if (state->discardCount[nextPlayer] > 0) {
-            tributeRevealedCards[0] = state->discard[nextPlayer][state->discardCount[nextPlayer]-1];
+            tributeRevealedCards[0] = state->discard[currentPlayer][state->discardCount[currentPlayer]-1];
             // refactor : no need to decrement
         }
         else {
@@ -1342,7 +1342,7 @@ int tributeCardEffect(struct gameState *state, int *tributeRevealedCards, int cu
     if (tributeRevealedCards[0] == tributeRevealedCards[1]) { //If we have a duplicate card, just drop one
         state->playedCards[state->playedCardCount] = tributeRevealedCards[1];
         state->playedCardCount++;
-        tributeRevealedCards[1] = -1;
+        tributeRevealedCards[0] = -1;
     }
 
     for (i = 0; i < 2; i ++) { // refactor to not run out of array 
