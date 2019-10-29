@@ -1257,7 +1257,7 @@ int ambassadorCardEffect(struct gameState *state, int choice1, int choice2, int 
     {
         for (i = 0; i < state->handCount[currentPlayer]; i++)
         {
-            if (state->hand[currentPlayer][i] == state->hand[currentPlayer][choice1])
+            if (state->hand[currentPlayer][i] == state->hand[currentPlayer][choice2])
             {
                 discardCard(i, currentPlayer, state, 1);
                 break;
