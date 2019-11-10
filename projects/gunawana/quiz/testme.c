@@ -6,8 +6,8 @@
 char inputChar()
 {
     // TODO: rewrite this function
-    char random = (char) ((rand() % 95) + 32);
-    return random;
+    char c = (char) ((rand() % 95) + 32);
+    return c;
 }
 
 char *inputString()
