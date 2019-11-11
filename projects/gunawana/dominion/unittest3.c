@@ -88,7 +88,7 @@ int main() {
     printf("Assert that function returns -1 as not enough cards to discard: ");
     assertEqual(cardEffectReturn, -1); // it should return -1 to pass
     printf("Assert that the handcount of player should be same as before playing: ");
-    assertEqual(G.handCount[p], maxHandCount); // current player's handcount should not decrease as no play can be done
+    assertEqual(G.handCount[p], handCount); // current player's handcount should not decrease as no play can be done
 
     return 0;
 }

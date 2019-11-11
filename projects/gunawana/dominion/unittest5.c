@@ -55,7 +55,8 @@ int main() {
     printf("Assert the function should return 0 since all choices are valid: ");
     assertEqual(cardEffectReturn, 0); // it should return 0 since choice is valid
     printf("Assert the player should gain a silver on their hand: ");
-    assertEqual(G.hand[p][G.handCount[p]], silver); // player must gain a silver card
+
+    assertEqual(G.hand[p][G.handCount[p]-1], silver); // player must gain a silver card
 
     printf ("\nTESTING mine cardEffect() player discard copper and gain gold:\n"); 
     choice1 = 1; // hand pos for treasure (copper) to trash
@@ -89,7 +90,7 @@ int main() {
     printf("Assert the function should return -1 since tribute should not be allowed to gain: ");
     assertEqual(cardEffectReturn, -1); // it should return 0 since choice is valid
     printf("Assert the player's last hand pos should still be copper (not tribute): ");
-    assertEqual(G.hand[p][G.handCount[p]], copper); // player must gain a silver card
+    assertEqual(G.hand[p][G.handCount[p]-1], copper); // player must gain a silver card
 
     printf ("\nTESTING mine cardEffect() player discard province and gain tribute:\n"); 
     choice1 = 1; // hand pos for province to trash
@@ -105,7 +106,7 @@ int main() {
     G.hand[p][1] = province; // set hand pos 1 to be province (to test discard)
 
     cardEffectReturn = mineCardEffect(&G, choice1, choice2, p, handPos);
-    printf("Assert the function should return -1 since province hould not be allowed to discard: ");
+    printf("Assert the function should return -1 since province should not be allowed to discard: ");
     assertEqual(cardEffectReturn, -1); // it should return -1 since choice to discard is invalid
 
 

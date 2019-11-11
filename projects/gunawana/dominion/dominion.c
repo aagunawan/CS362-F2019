@@ -1331,11 +1331,9 @@ int tributeCardEffect(struct gameState *G, int *tributeRevealedCards, int curren
                 printf("No cards to reveal\n");
             }
         }
-        printf("tributeRevealedCards = %d\n", tributeRevealedCards[1]);
     }
 
     else {
-        printf("here1\n");
         if (G->deckCount[nextPlayer] == 0) {
             for (int i = 0; i < G->discardCount[nextPlayer]; i++) {
                 G->deck[nextPlayer][i] = G->discard[nextPlayer][i];//Move to deck

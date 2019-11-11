@@ -71,8 +71,10 @@ int main() {
 
     minionCardEffect(&G, choice1, choice2, p, handPos);
     printf("Assert that the hand of current player should increase to 4: ");
-    
     assertEqual(G.handCount[p], 4); // the coins should increase by 2
+     
+    printf("Assert that the hand of the other player should not change: ");   
+    assertEqual(G.handCount[p+1], handCount); // the coins should increase by 2
 
     printf ("\nTESTING minion cardEffect() choice 2 with another player also has at least 5 cards:\n"); 
     choice1 = 0; // player chooses +2 coins
