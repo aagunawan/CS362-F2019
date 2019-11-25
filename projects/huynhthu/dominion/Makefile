@@ -21,7 +21,6 @@ runtests: testDrawCard
 	gcov dominion.c >> unittestresult.out
 	cat dominion.c.gcov >> unittestresult.out
 
-<<<<<<< HEAD
 unittestresults: unittest1.c unittest2.c unittest3.c unittest4.c unittest5.c dominion.o
 	echo "unittest1.c:" >> unittestresults.out
 	gcc -o unittest1 unittest1.c -g dominion.o rngs.o $(CFLAGS)
@@ -47,7 +46,7 @@ unittestresults: unittest1.c unittest2.c unittest3.c unittest4.c unittest5.c dom
 	gcc -o unittest5 unittest5.c -g dominion.o rngs.o $(CFLAGS)
 	./unittest5 >> unittestresults.out 
 	gcov -f -b dominion.c >> unittestresults.out 
-=======
+
 randomtestresults: randomtestcard1.c randomtestcard2.c randomtestcard3.c dominion.o
 	echo "randomtestcard1.c:" >> randomtestresults.out
 	gcc -o randomtestcard1 randomtestcard1.c -g dominion.o rngs.o $(CFLAGS)
@@ -63,7 +62,6 @@ randomtestresults: randomtestcard1.c randomtestcard2.c randomtestcard3.c dominio
 	gcc -o randomtestcard3 randomtestcard3.c -g dominion.o rngs.o $(CFLAGS)
 	./randomtestcard3 >> randomtestresults.out 
 	gcov -f -b dominion.c >> randomtestresults.out 
->>>>>>> fe3c60ef238fe8371cde9ee87c1f4cabbc7c7d5b
 
 player: player.c interface.o
 	gcc -o player player.c -g  dominion.o rngs.o interface.o $(CFLAGS)
